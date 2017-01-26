@@ -4,7 +4,7 @@ import gogol.util.AgeFactory;
 import gogol.util.VisitorClassicForArmedUnit;
 import gogol.util.VisitorFunctForArmedUnit;
 
-public interface ArmedUnit {
+public interface ArmedUnit{
 	public String getName();
 
 	public float getHealthPoints();

@@ -1,5 +1,6 @@
 package gogol.soldier;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,7 @@ import gogol.util.ObservableAbstract;
 import gogol.util.VisitorClassicForArmedUnit;
 import gogol.util.VisitorFunctForArmedUnit;
 
-public class ArmedUnitGroup extends ObservableAbstract<ArmedUnit> 
-                            implements ArmedUnit {
+public class ArmedUnitGroup extends ObservableAbstract<ArmedUnit> implements ArmedUnit {
 	protected List<ArmedUnit> armedUnitList = new ArrayList<ArmedUnit>();
 	protected String name;
 	protected AgeFactory age;

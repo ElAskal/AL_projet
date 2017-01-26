@@ -8,22 +8,26 @@ import gameframework.moves_rules.MoveStrategyStraightLine;
 import gameframework.moves_rules.Overlap;
 import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
 
+import java.awt.Canvas;
 import java.awt.Point;
 import java.util.Vector;
 
 import gogol.entity.Jail;
 import gogol.entity.Pacgum;
 import gogol.entity.TeleportPairOfPoints;
+import gogol.entity.Sanchez;
+import gogol.entity.Shield;
+import gogol.entity.Sword;
+import gogol.entity.Cavalry;
 import gogol.soldier.ArmedUnitGroup;
 import gogol.soldier.Horseman;
-import gogol.weapon.Sword;
 
 public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
-	protected Vector<Horseman> vHorsemans = new Vector<Horseman>();
+	protected Vector<Cavalry> vCavalries = new Vector<Cavalry>();
 
 	protected Point sanchezStartPos;
-	protected Point horsemanStartPos;
+	protected Point cavalryStartPos;
 	protected boolean manageSanchezDeath;
 	private final ObservableValue<Integer> score;
 	private final ObservableValue<Integer> life;
@@ -34,12 +38,12 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	private int nbEatenGums = 0;
 	private static final int NB_HORSEMANS = 5;
 
-	public GogolOverlapRules(Point pacPos, Point gPos,
+	public GogolOverlapRules(Point sPos, Point cPos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,
 			ObservableValue<Boolean> endOfGame, ObservableValue<Integer> xp,
 			ObservableValue<Float> health) {
-		sanchezStartPos = (Point) pacPos.clone();
-		horsemanStartPos = (Point) gPos.clone();
+		sanchezStartPos = (Point) sPos.clone();
+		cavalryStartPos = (Point) cPos.clone();
 		this.life = life;
 		this.score = score;
 		this.endOfGame = endOfGame;
@@ -55,8 +59,8 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		this.totalNbGums = totalNbGums;
 	}
 
-	public void addHorseman(Horseman g) {
-		vHorsemans.addElement(g);
+	public void addCavalry(Cavalry c) {
+		vCavalries.addElement(c);
 	}
 
 	@Override
@@ -65,8 +69,10 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		super.applyOverlapRules(overlappables);
 	}
 
-	public void overlapRule(ArmedUnitGroup aug, Horseman h) {
-		// TODO : Rendre aug et h immobiles
+	public void overlapRule(Sanchez s, Cavalry c) {
+		ArmedUnitGroup aug = s.getAug();
+		Horseman h = c.getHorseman();
+		// TODO : Rendre s et h immobiles
 		while(aug.alive() && h.alive()){
 			h.parry(aug.strike());
 			if(h.alive())
@@ -75,8 +81,8 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		if(aug.alive()){
 			health.setValue(aug.getHealthPoints());
 			xp.setValue(xp.getValue() + 25);
-			vHorsemans.remove(h);
-			if(vHorsemans.isEmpty())
+			vCavalries.remove(c);
+			if(vCavalries.isEmpty())
 				endOfGame.setValue(true);
 		}
 		else
@@ -84,11 +90,11 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				life.setValue(life.getValue() - 1);
 				aug.heal();
 				health.setValue(aug.getHealthPoints());
-				aug.setPosition(sanchezStartPos);
-				while(vHorsemans.size() < NB_HORSEMANS)
-					vHorsemans.addElement(new Horseman(""));
-				for (Horseman horse : vHorsemans) {
-					horse.setPosition(horsemanStartPos);
+				s.setPosition(sanchezStartPos);
+				while(vCavalries.size() < NB_HORSEMANS)
+					vCavalries.addElement(new Cavalry(new Canvas(), new Horseman("")));
+				for (Cavalry cav : vCavalries) {
+					cav.setPosition(cavalryStartPos);
 				}
 				manageSanchezDeath = false;
 			}
@@ -116,39 +122,39 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		}*/
 	}
 
-	public void overlapRule(Horseman h, Sword s) {
+	public void overlapRule(Cavalry c, Sword s) {
 	}
 
-	public void overlapRule(Horseman h, Pacgum pg) {
+	public void overlapRule(Cavalry c, Pacgum pg) {
 	}
 
-	public void overlapRule(Horseman h, TeleportPairOfPoints teleport) {
-		h.setPosition(teleport.getDestination());
+	public void overlapRule(Cavalry c, TeleportPairOfPoints teleport) {
+		c.setPosition(teleport.getDestination());
 	}
 
-	public void overlapRule(ArmedUnitGroup aug, TeleportPairOfPoints teleport) {
-		aug.setPosition(teleport.getDestination());
+	public void overlapRule(Sanchez s, TeleportPairOfPoints teleport) {
+		s.setPosition(teleport.getDestination());
 	}
 
-	public void overlapRule(Horseman h, Jail jail) {
+	public void overlapRule(Cavalry c, Jail jail) {
 
 	}
 
-	public void overlapRule(ArmedUnitGroup aug, Sword s) {
+	public void overlapRule(Sanchez sa, Sword sw) {
 		score.setValue(score.getValue() + 5);
-		universe.removeGameEntity(s);
-		aug.addEquipmentOneEach("Offensive");
+		universe.removeGameEntity(sw);
+		sa.getAug().addEquipmentOneEach("Offensive");
 		pacgumEatenHandler();
 	}
 	
-	public void overlapRule(ArmedUnitGroup aug, Shield s) {
+	public void overlapRule(Sanchez sa, Shield sh) {
 		score.setValue(score.getValue() + 5);
-		universe.removeGameEntity(s);
-		aug.addEquipmentOneEach("Defensive");
+		universe.removeGameEntity(sh);
+		sa.getAug().addEquipmentOneEach("Defensive");
 		pacgumEatenHandler();
 	}
 
-	public void overlapRule(ArmedUnitGroup aug, Pacgum pg) {
+	public void overlapRule(Sanchez s, Pacgum pg) {
 		score.setValue(score.getValue() + 1);
 		xp.setValue(xp.getValue() + 1);
 		universe.removeGameEntity(pg);
