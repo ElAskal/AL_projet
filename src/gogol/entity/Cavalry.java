@@ -20,6 +20,7 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 	private final SpriteManagerDefaultImpl spriteManager;
 	public static final int RENDERING_SIZE = 16;
 	private Horseman h;
+	public boolean beaten = false;
 	
 	public Cavalry(Canvas defaultCanvas, Horseman h) {
 		spriteManager = new SpriteManagerDefaultImpl("images/horseman.gif",
@@ -31,6 +32,14 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 				
 				"static", "unused");
 		this.h = h;
+	}
+	
+	public boolean getBeaten(){
+		return beaten;
+	}
+	
+	public void setBeaten(boolean b){
+		this.beaten = b;
 	}
 	
 	public Horseman getHorseman(){

@@ -68,37 +68,41 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 
 	public void overlapRule(Sanchez s, Cavalry c) {
-		ArmedUnitGroup aug = s.getAug();
-		Horseman h = c.getHorseman();
-		System.out.println("PV de Sanchez avant overlap: "+aug.getHealthPoints()+"\n");
-		System.out.println("PV de la cavalerie avant overlap: "+h.getHealthPoints()+"\n");
-		while(aug.alive() && h.alive()){
-			/*MoveStrategyDefaultImpl strat = new MoveStrategyDefaultImpl();
-			GameMovableDriverDefaultImpl CavalryDriv = (GameMovableDriverDefaultImpl) c
-					.getDriver();
-			CavalryDriv.setStrategy(strat);*/
-			h.parry(aug.strike());
-			if(h.alive())
-				aug.parry(h.strike());
-		}
-		if(aug.alive()){
-			aug.addUnit(new ArmedUnitSoldier(s.getMaf(), "Rider", ""));
-			VisitorClassicCounter vcc = new VisitorClassicCounter();
-			vcc.visit(aug);
-			if(vcc.getCount() >= 6)
-				endOfGame.setValue(true);
-		}
-		else
-			if(manageSanchezDeath){
-				life.setValue(life.getValue() - 1);
-				aug.heal();
-				s.setPosition(sanchezStartPos);
-				GameLevelOne.fillCavalries(vCavalries);
-				for (Cavalry cav : vCavalries) {
-					cav.setPosition(cavalryStartPos);
-				}
-				manageSanchezDeath = false;
+		if(!(c.getBeaten())){
+			ArmedUnitGroup aug = s.getAug();
+			Horseman h = c.getHorseman();
+			System.out.println("PV de Sanchez avant overlap: "+aug.getHealthPoints()+"\n");
+			System.out.println("PV de la cavalerie avant overlap: "+h.getHealthPoints()+"\n");
+			while(aug.alive() && h.alive()){
+				MoveStrategyDefaultImpl strat = new MoveStrategyDefaultImpl();
+				GameMovableDriverDefaultImpl CavalryDriv = (GameMovableDriverDefaultImpl) c
+						.getDriver();
+				CavalryDriv.setStrategy(strat);
+				h.parry(aug.strike());
+				if(h.alive())
+					aug.parry(h.strike());
 			}
+			if(aug.alive()){
+				c.setBeaten(true);
+				aug.addUnit(new ArmedUnitSoldier(s.getMaf(), "Rider", ""));
+				VisitorClassicCounter vcc = new VisitorClassicCounter();
+				vcc.visit(aug);
+				System.out.println("Compteur du visiteur = "+vcc.getCount());
+				if(vcc.getCount() >= 5)
+					endOfGame.setValue(true);
+			}
+			else
+				if(manageSanchezDeath){
+					life.setValue(life.getValue() - 1);
+					aug.heal();
+					s.setPosition(sanchezStartPos);
+					GameLevelOne.fillCavalries(vCavalries);
+					for (Cavalry cav : vCavalries) {
+						cav.setPosition(cavalryStartPos);
+					}
+					manageSanchezDeath = false;
+				}
+		}
 		/* if (!p.isVulnerable()) {
 			if (g.isActive()) {
 				g.setAlive(false);
