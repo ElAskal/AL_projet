@@ -21,15 +21,14 @@ public class Pacman extends GameMovable implements Drawable, GameEntity,
 	protected int vulnerableTimer = 0;
 
 	public Pacman(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/pac1.gif",
+		spriteManager = new SpriteManagerDefaultImpl("images/infantryman.gif",
 				defaultCanvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes(
 				//
-				"right", "left", "up",
-				"down",//
-				"invulnerable-right", "invulnerable-left", "invulnerable-up",
-				"invulnerable-down", //
-				"unused", "static", "unused");
+				"down", "left", "right", "up",
+				//
+				
+				"static", "unused");
 	}
 
 	public void setInvulnerable(int timer) {
@@ -44,9 +43,6 @@ public class Pacman extends GameMovable implements Drawable, GameEntity,
 		String spriteType = "";
 		Point tmp = getSpeedVector().getDirection();
 		movable = true;
-		if (!isVulnerable()) {
-			spriteType += "invulnerable-";
-		}
 
 		if (tmp.getX() == 1) {
 			spriteType += "right";
