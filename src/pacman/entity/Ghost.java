@@ -23,21 +23,18 @@ public class Ghost extends GameMovable implements Drawable, GameEntity,
 	public static final int RENDERING_SIZE = 16;
 
 	public Ghost(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/ghost.gif",
-				defaultCanvas, RENDERING_SIZE, 6);
+		spriteManager = new SpriteManagerDefaultImpl("images/horseman.gif",
+				defaultCanvas, RENDERING_SIZE, 3);
 		spriteManager.setTypes(
 				//
+				"down",//
 				"left",
 				"right",
 				"up",
-				"down",//
 				"beginAfraid-left",
 				"beginAfraid-right",
 				"beginAfraid-up",
-				"beginAfraid-down", //
-				"endAfraid-left", "endAfraid-right",
-				"endAfraid-up",
-				"endAfraid-down", //
+				"beginAfraid-down", //		
 				"inactive-left", "inactive-right", "inactive-up",
 				"inactive-down", //
 				"unused");
@@ -66,12 +63,7 @@ public class Ghost extends GameMovable implements Drawable, GameEntity,
 
 		if (!isActive()) {
 			spriteType = "inactive-";
-		} else if (afraidTimer > maxAfraidTimer / 2) {
-			spriteType = "beginAfraid-";
-		} else if (isAfraid()) {
-			spriteType = "endAfraid-";
-		}
-
+		} 
 		if (tmp.getX() == -1) {
 			spriteType += "left";
 		} else if (tmp.getY() == 1) {
