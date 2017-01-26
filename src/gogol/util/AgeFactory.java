@@ -1,8 +1,8 @@
 package gogol.util;
 
-import soldier.Soldier;
-import soldier.SoldierAbstract;
-import weapon.SoldierArmed;
+import gogol.entity.Soldier;
+import gogol.entity.SoldierAbstract;
+import gogol.entity.SoldierArmed;
 
 public interface AgeFactory {
 	SoldierAbstract getSimpleSoldier(String name);
