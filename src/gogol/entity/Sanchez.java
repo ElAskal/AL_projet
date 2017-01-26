@@ -7,6 +7,8 @@ import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManagerDefaultImpl;
 import gogol.soldier.ArmedUnitGroup;
+import gogol.soldier.ArmedUnitSoldier;
+import gogol.util.MiddleAgeFactory;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -21,7 +23,7 @@ public class Sanchez extends GameMovable implements Drawable, GameEntity,
 	public static final int RENDERING_SIZE = 16;
 	public ArmedUnitGroup aug;
 	
-	public Sanchez(Canvas defaultCanvas, ArmedUnitGroup aug) {
+	public Sanchez(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerDefaultImpl("images/infantryman.gif",
 				defaultCanvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes(
@@ -30,7 +32,9 @@ public class Sanchez extends GameMovable implements Drawable, GameEntity,
 				//
 				
 				"static", "unused");
-		this.aug = aug;
+		MiddleAgeFactory maf = new MiddleAgeFactory();
+		aug = new ArmedUnitGroup(maf, "");
+		aug.addUnit(new ArmedUnitSoldier(maf, "Simple", ""));
 	}
 	
 	public ArmedUnitGroup getAug(){

@@ -127,9 +127,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		
 		// Pacman definition and inclusion in the universe
-		MiddleAgeFactory maf = null;
-		ArmedUnitGroup aug = new ArmedUnitGroup(maf, "");
-		Sanchez mySanchez = new Sanchez(canvas, aug);
+		Sanchez mySanchez = new Sanchez(canvas);
 		GameMovableDriverDefaultImpl sanDriver = new GameMovableDriverDefaultImpl();
 		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
 		sanDriver.setStrategy(keyStr);
@@ -163,5 +161,4 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		while (vc.size() < NUMBER_OF_CAVALRIES)
 			vc.addElement(new Cavalry(canvas, new Horseman("")));
 	}
-
 }
