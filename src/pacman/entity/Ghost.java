@@ -31,12 +31,12 @@ public class Ghost extends GameMovable implements Drawable, GameEntity,
 				"left",
 				"right",
 				"up",
+				"beginAfraid-down", //	
 				"beginAfraid-left",
 				"beginAfraid-right",
 				"beginAfraid-up",
-				"beginAfraid-down", //		
-				"inactive-left", "inactive-right", "inactive-up",
 				"inactive-down", //
+				"inactive-left", "inactive-right", "inactive-up",
 				"unused");
 	}
 
