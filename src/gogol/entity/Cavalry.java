@@ -27,14 +27,13 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 	public ArmedUnitGroup aug;
 	
 	public Cavalry(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/horseman.gif",
+		spriteManager = new SpriteManagerDefaultImpl("images/horseman.png",
 				defaultCanvas, RENDERING_SIZE, 3);
 		spriteManager.setTypes(
 				//
 				"down", "left", "right", "up",
 				//
-				
-				"static", "unused");
+				"unused");
 		MiddleAgeFactory maf = new MiddleAgeFactory();
 		aug = new ArmedUnitGroup(maf, "");
 		aug.addUnit(new ArmedUnitSoldier(maf, "Rider", ""));
@@ -70,7 +69,7 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
 		} else {
-			spriteType = "static";
+			spriteType = "down";
 			spriteManager.reset();
 			movable = false;
 		}

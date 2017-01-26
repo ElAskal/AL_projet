@@ -25,7 +25,7 @@ public class Sanchez extends GameMovable implements Drawable, GameEntity,
 	public MiddleAgeFactory maf;
 	
 	public Sanchez(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/infantryman.gif",
+		spriteManager = new SpriteManagerDefaultImpl("images/infatryman.gif",
 				defaultCanvas, RENDERING_SIZE, 3);
 		spriteManager.setTypes(
 				//
