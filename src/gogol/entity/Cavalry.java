@@ -23,14 +23,14 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 	public boolean beaten = false;
 	
 	public Cavalry(Canvas defaultCanvas, Horseman h) {
-		spriteManager = new SpriteManagerDefaultImpl("images/horseman.gif",
+		spriteManager = new SpriteManagerDefaultImpl("images/horseman.png",
 				defaultCanvas, RENDERING_SIZE, 3);
 		spriteManager.setTypes(
 				//
 				"down", "left", "right", "up",
 				//
 				
-				"static", "unused");
+				"unused");
 		this.h = h;
 	}
 	
@@ -60,7 +60,7 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 		} else if (tmp.getY() == -1) {
 			spriteType += "up";
 		} else {
-			spriteType = "static";
+			spriteType = "down";
 			spriteManager.reset();
 			movable = false;
 		}
