@@ -11,7 +11,7 @@ import gogol.util.VisitorClassicForArmedUnit;
 import gogol.util.VisitorFunctForArmedUnit;
 
 public class ArmedUnitGroup extends ObservableAbstract<ArmedUnit> implements ArmedUnit {
-	protected List<ArmedUnit> armedUnitList = new ArrayList<ArmedUnit>();
+	public List<ArmedUnit> armedUnitList = new ArrayList<ArmedUnit>();
 	protected String name;
 	protected AgeFactory age;
 

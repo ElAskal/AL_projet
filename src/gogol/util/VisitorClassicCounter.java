@@ -1,5 +1,6 @@
 package gogol.util;
 
+import gogol.soldier.ArmedUnit;
 import gogol.soldier.ArmedUnitGroup;
 import gogol.soldier.ArmedUnitSoldier;
 
@@ -13,6 +14,10 @@ public class VisitorClassicCounter implements VisitorClassicForArmedUnit {
 
 	@Override
 	public void visit(ArmedUnitGroup a) {
+		for (ArmedUnit u : a.armedUnitList)
+		{
+			count++;	
+		}
 	}
 
 	public void reset() {
