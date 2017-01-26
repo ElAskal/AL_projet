@@ -18,9 +18,6 @@ import gogol.entity.ArmedUnitGroup;
 import gogol.entity.Sword;
 import gogol.entity.TeleportPairOfPoints;
 
-import soldier.Horseman; // TODO : Remove these when integrated
-import soldier.ArmedUnitGroup;
-
 public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected Vector<Horseman> vHorsemans = new Vector<Horseman>();
