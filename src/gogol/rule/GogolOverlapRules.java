@@ -35,6 +35,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	private final ObservableValue<Boolean> endOfGame;
 	private int totalNbGums = 0;
 	private int nbEatenGums = 0;
+	private static final int NB_HORSEMANS = 5;
 
 	public GogolOverlapRules(Point pacPos, Point gPos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,
@@ -87,6 +88,8 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				aug.heal();
 				health.setValue(aug.getHealthPoints());
 				aug.setPosition(sanchezStartPos);
+				while(vHorsemans.size() < NB_HORSEMANS)
+					vHorsemans.addElement(new Horseman(""));
 				for (Horseman horse : vHorsemans) {
 					horse.setPosition(horsemanStartPos);
 				}
@@ -150,6 +153,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 
 	public void overlapRule(ArmedUnitGroup aug, Pacgum pg) {
 		score.setValue(score.getValue() + 1);
+		xp.setValue(xp.getValue() + 1);
 		universe.removeGameEntity(pg);
 		pacgumEatenHandler();
 	}
