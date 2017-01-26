@@ -1,4 +1,4 @@
-package pacman;
+package gogol;
 
 import gameframework.core.CanvasDefaultImpl;
 import gameframework.core.Game;
@@ -12,23 +12,31 @@ import gameframework.moves_rules.MoveStrategyKeyboard;
 import gameframework.moves_rules.MoveStrategyRandom;
 import gameframework.moves_rules.OverlapProcessor;
 import gameframework.moves_rules.OverlapProcessorDefaultImpl;
+import gogol.entity.Cavalry;
+import gogol.soldier.ArmedUnit;
+import gogol.soldier.ArmedUnitGroup;
+import gogol.soldier.ArmedUnitSoldier;
+import gogol.soldier.Horseman;
+import gogol.util.AgeFactory;
+import gogol.util.MiddleAgeFactory;
 
 import java.awt.Canvas;
 import java.awt.Point;
+import java.util.Vector;
 
-import pacman.entity.Ghost;
-import pacman.entity.Jail;
-import pacman.entity.Pacgum;
-import pacman.entity.Pacman;
-import pacman.entity.SuperPacgum;
-import pacman.entity.TeleportPairOfPoints;
-import pacman.entity.Wall;
-import pacman.rule.GhostMovableDriver;
-import pacman.rule.PacmanMoveBlockers;
-import pacman.rule.PacmanOverlapRules;
+import gogol.entity.Jail;
+import gogol.entity.Pacgum;
+import gogol.entity.Sanchez;
+import gogol.entity.Shield;
+import gogol.entity.Sword;
+import gogol.entity.TeleportPairOfPoints;
+import gogol.entity.Wall;
+import gogol.rule.CavalryMovableDriver;
+import gogol.rule.GogolMoveBlockers;
+import gogol.rule.GogolOverlapRules;
 
 public class GameLevelOne extends GameLevelDefaultImpl {
-	Canvas canvas;
+	static Canvas canvas;
 
 	// 0 : Pacgums; 1 : Walls; 2 : SuperPacgums; 3 : Doors; 4 : Jail; 5 : empty
 	// Note: teleportation points are not indicated since they are defined by
@@ -67,16 +75,16 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
 	public static final int SPRITE_SIZE = 16;
-	public static final int NUMBER_OF_GHOSTS = 5;
+	public static final int NUMBER_OF_CAVALRIES = 5;
 
 	@Override
 	protected void init() {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		moveBlockerChecker.setMoveBlockerRules(new PacmanMoveBlockers());
+		moveBlockerChecker.setMoveBlockerRules(new GogolMoveBlockers());
 		
-		PacmanOverlapRules overlapRules = new PacmanOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
+		GogolOverlapRules overlapRules = new GogolOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
 				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
 
@@ -99,7 +107,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 					universe.addGameEntity(new Wall(canvas, j * SPRITE_SIZE, i * SPRITE_SIZE));
 				}
 				if (tab[i][j] == 2) {
-					universe.addGameEntity(new SuperPacgum(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+					universe.addGameEntity(new Sword(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 					totalNbGums++;
 				}
 				if (tab[i][j] == 4) {
@@ -119,34 +127,41 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 		
 		
 		// Pacman definition and inclusion in the universe
-		Pacman myPac = new Pacman(canvas);
-		GameMovableDriverDefaultImpl pacDriver = new GameMovableDriverDefaultImpl();
+		MiddleAgeFactory maf = null;
+		ArmedUnitGroup aug = new ArmedUnitGroup(maf, "");
+		Sanchez mySanchez = new Sanchez(canvas, aug);
+		GameMovableDriverDefaultImpl sanDriver = new GameMovableDriverDefaultImpl();
 		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
-		pacDriver.setStrategy(keyStr);
-		pacDriver.setmoveBlockerChecker(moveBlockerChecker);
+		sanDriver.setStrategy(keyStr);
+		sanDriver.setmoveBlockerChecker(moveBlockerChecker);
 		canvas.addKeyListener(keyStr);
-		myPac.setDriver(pacDriver);
-		myPac.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
-		universe.addGameEntity(myPac);
+		mySanchez.setDriver(sanDriver);
+		mySanchez.setPosition(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE));
+		universe.addGameEntity(mySanchez);
 
 		// Ghosts definition and inclusion in the universe
-		Ghost myGhost;
-		for (int t = 0; t < NUMBER_OF_GHOSTS; ++t) {
-			GameMovableDriverDefaultImpl ghostDriv = new GhostMovableDriver();
+		Cavalry myCavalry;
+		for (int t = 0; t < NUMBER_OF_CAVALRIES; ++t) {
+			GameMovableDriverDefaultImpl cavalryDriv = new CavalryMovableDriver();
 			MoveStrategyRandom ranStr = new MoveStrategyRandom();
-			ghostDriv.setStrategy(ranStr);
-			ghostDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myGhost = new Ghost(canvas);
-			myGhost.setDriver(ghostDriv);
-			myGhost.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
-			universe.addGameEntity(myGhost);
-			(overlapRules).addGhost(myGhost);
+			cavalryDriv.setStrategy(ranStr);
+			cavalryDriv.setmoveBlockerChecker(moveBlockerChecker);
+			myCavalry = new Cavalry(canvas, new Horseman(""));
+			myCavalry.setDriver(cavalryDriv);
+			myCavalry.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
+			universe.addGameEntity(myCavalry);
+			(overlapRules).addCavalry(myCavalry);
 		}
 	}
 
 	public GameLevelOne(Game g) {
 		super(g);
 		canvas = g.getCanvas();
+	}
+	
+	public static void fillCavalries(Vector<Cavalry> vc){
+		while (vc.size() < NUMBER_OF_CAVALRIES)
+			vc.addElement(new Cavalry(canvas, new Horseman("")));
 	}
 
 }

@@ -19,7 +19,7 @@ public class Sanchez extends GameMovable implements Drawable, GameEntity,
 	protected boolean movable = true;
 	private final SpriteManagerDefaultImpl spriteManager;
 	public static final int RENDERING_SIZE = 16;
-	private ArmedUnitGroup aug;
+	public ArmedUnitGroup aug;
 	
 	public Sanchez(Canvas defaultCanvas, ArmedUnitGroup aug) {
 		spriteManager = new SpriteManagerDefaultImpl("images/infantryman.gif",

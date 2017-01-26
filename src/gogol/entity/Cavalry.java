@@ -22,7 +22,7 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 	private Horseman h;
 	
 	public Cavalry(Canvas defaultCanvas, Horseman h) {
-		spriteManager = new SpriteManagerDefaultImpl("images/infantryman.gif",
+		spriteManager = new SpriteManagerDefaultImpl("images/horseman.gif",
 				defaultCanvas, RENDERING_SIZE, 6);
 		spriteManager.setTypes(
 				//

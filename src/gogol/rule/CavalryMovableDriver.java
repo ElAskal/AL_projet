@@ -4,7 +4,7 @@ import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.Movable;
 import gameframework.moves_rules.SpeedVector;
 
-public class HorsemanMovableDriver extends GameMovableDriverDefaultImpl {
+public class CavalryMovableDriver extends GameMovableDriverDefaultImpl {
 
 	// A modified random strategy that makes ghosts mostly follow the alleys in
 	// one direction.

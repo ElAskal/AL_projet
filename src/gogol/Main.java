@@ -1,4 +1,4 @@
-package pacman;
+package gogol;
 
 import gameframework.core.GameDefaultImpl;
 import gameframework.core.GameLevel;
