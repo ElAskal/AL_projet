@@ -1,4 +1,6 @@
-package gogol.entity;
+package gogol.weapon;
+
+import gogol.soldier.Soldier;
 
 public class SoldierWithShield extends SoldierArmed<Shield> {
 

@@ -11,12 +11,12 @@ import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
 import java.awt.Point;
 import java.util.Vector;
 
-import gogol.entity.Horseman;
 import gogol.entity.Jail;
 import gogol.entity.Pacgum;
-import gogol.entity.ArmedUnitGroup;
-import gogol.entity.Sword;
 import gogol.entity.TeleportPairOfPoints;
+import gogol.soldier.ArmedUnitGroup;
+import gogol.soldier.Horseman;
+import gogol.weapon.Sword;
 
 public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;

@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.weapon;
 
 public abstract class WeaponAbstract implements Weapon {
 	protected float defense;

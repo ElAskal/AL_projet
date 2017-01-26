@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.soldier;
 
 import gogol.util.AgeFactory;
 import gogol.util.VisitorClassicForArmedUnit;

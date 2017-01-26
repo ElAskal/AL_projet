@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.weapon;
 
 interface Weapon {
 	float getParryValue();

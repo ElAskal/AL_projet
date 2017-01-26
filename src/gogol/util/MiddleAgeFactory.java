@@ -1,6 +1,13 @@
 package gogol.util;
 
 import gogol.entity.*;
+import gogol.soldier.Horseman;
+import gogol.soldier.InfantryMan;
+import gogol.soldier.Soldier;
+import gogol.soldier.SoldierAbstract;
+import gogol.weapon.SoldierArmed;
+import gogol.weapon.SoldierWithShield;
+import gogol.weapon.SoldierWithSword;
 
 public class MiddleAgeFactory implements AgeFactory {
 

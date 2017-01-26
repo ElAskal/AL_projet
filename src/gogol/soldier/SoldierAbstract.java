@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.soldier;
 
 public abstract class SoldierAbstract implements Soldier {
 	protected String name;

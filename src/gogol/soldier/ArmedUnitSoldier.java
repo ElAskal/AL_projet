@@ -1,11 +1,11 @@
-package gogol.entity;
+package gogol.soldier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import gogol.util.*;
 import gogol.except.*;
-import gogol.entity.SoldierAbstract;
+import gogol.soldier.SoldierAbstract;
 
 public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> 
                               implements ArmedUnit {

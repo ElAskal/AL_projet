@@ -1,7 +1,7 @@
 package gogol.util;
 
-import gogol.entity.ArmedUnitGroup;
-import gogol.entity.ArmedUnitSoldier;
+import gogol.soldier.ArmedUnitGroup;
+import gogol.soldier.ArmedUnitSoldier;
 
 public class VisitorClassicNamer implements VisitorClassicForArmedUnit {
 	private String s = "";

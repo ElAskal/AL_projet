@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.soldier;
 
 public interface Soldier {
 	public String getName();

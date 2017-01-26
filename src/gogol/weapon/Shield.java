@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.weapon;
 
 public class Shield extends WeaponAbstract {
 	private static final float DEFENSE = 10;

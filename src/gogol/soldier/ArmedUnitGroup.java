@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.soldier;
 
 import java.util.ArrayList;
 import java.util.List;

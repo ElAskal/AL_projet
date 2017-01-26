@@ -1,4 +1,4 @@
-package gogol.entity;
+package gogol.soldier;
 
 public class Horseman extends SoldierAbstract {
 	private static final int FORCE = 20;

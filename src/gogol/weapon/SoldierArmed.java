@@ -1,4 +1,6 @@
-package gogol.entity;
+package gogol.weapon;
+
+import gogol.soldier.Soldier;
 
 // param W expresses the link with a specific type of weapon (e.g.,
 // SoldierWithShield is linked with a Shield, not any kind of weapon). 
