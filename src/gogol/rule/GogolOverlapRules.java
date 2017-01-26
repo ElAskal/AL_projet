@@ -3,6 +3,7 @@ package gogol.rule;
 import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverse;
 import gameframework.core.ObservableValue;
+import gameframework.moves_rules.MoveStrategyDefaultImpl;
 import gameframework.moves_rules.MoveStrategyRandom;
 import gameframework.moves_rules.MoveStrategyStraightLine;
 import gameframework.moves_rules.Overlap;
@@ -19,7 +20,10 @@ import gogol.entity.Shield;
 import gogol.entity.Sword;
 import gogol.entity.Cavalry;
 import gogol.soldier.ArmedUnitGroup;
+import gogol.soldier.ArmedUnitSoldier;
 import gogol.soldier.Horseman;
+import gogol.util.MiddleAgeFactory;
+import gogol.util.VisitorClassicCounter;
 import gogol.GameLevelOne;
 
 public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
@@ -68,15 +72,20 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		Horseman h = c.getHorseman();
 		System.out.println("PV de Sanchez avant overlap: "+aug.getHealthPoints()+"\n");
 		System.out.println("PV de la cavalerie avant overlap: "+h.getHealthPoints()+"\n");
-		// TODO : Rendre s et h immobiles
 		while(aug.alive() && h.alive()){
+			/*MoveStrategyDefaultImpl strat = new MoveStrategyDefaultImpl();
+			GameMovableDriverDefaultImpl CavalryDriv = (GameMovableDriverDefaultImpl) c
+					.getDriver();
+			CavalryDriv.setStrategy(strat);*/
 			h.parry(aug.strike());
 			if(h.alive())
 				aug.parry(h.strike());
 		}
 		if(aug.alive()){
-			vCavalries.remove(c);
-			if(vCavalries.isEmpty())
+			aug.addUnit(new ArmedUnitSoldier(s.getMaf(), "Rider", ""));
+			VisitorClassicCounter vcc = new VisitorClassicCounter();
+			vcc.visit(aug);
+			if(vcc.getCount() >= 6)
 				endOfGame.setValue(true);
 		}
 		else

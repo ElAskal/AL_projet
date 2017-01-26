@@ -22,6 +22,7 @@ public class Sanchez extends GameMovable implements Drawable, GameEntity,
 	private final SpriteManagerDefaultImpl spriteManager;
 	public static final int RENDERING_SIZE = 16;
 	public ArmedUnitGroup aug;
+	public MiddleAgeFactory maf;
 	
 	public Sanchez(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerDefaultImpl("images/infantryman.gif",
@@ -32,13 +33,17 @@ public class Sanchez extends GameMovable implements Drawable, GameEntity,
 				//
 				
 				"static", "unused");
-		MiddleAgeFactory maf = new MiddleAgeFactory();
+		maf = new MiddleAgeFactory();
 		aug = new ArmedUnitGroup(maf, "");
 		aug.addUnit(new ArmedUnitSoldier(maf, "Simple", ""));
 	}
 	
 	public ArmedUnitGroup getAug(){
 		return aug;
+	}
+	
+	public MiddleAgeFactory getMaf(){
+		return maf;
 	}
 		
 	public void draw(Graphics g) {
