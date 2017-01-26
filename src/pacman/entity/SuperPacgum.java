@@ -16,7 +16,7 @@ public class SuperPacgum implements Drawable, GameEntity, Overlappable {
 	public static final int RENDERING_SIZE = 16;
 
 	public SuperPacgum(Canvas defaultCanvas, Point pos) {
-		image = new DrawableImage("images/superpacgum.gif", defaultCanvas);
+		image = new DrawableImage("images/sword.gif", defaultCanvas);
 		position = pos;
 	}
 
