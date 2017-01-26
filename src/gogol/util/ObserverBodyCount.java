@@ -3,8 +3,8 @@ package gogol.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import soldier.ArmedUnit;
-import soldier.ArmedUnitSoldier;
+import gogol.soldier.ArmedUnit;
+import gogol.soldier.ArmedUnitSoldier;
 
 public class ObserverBodyCount implements Observer<ArmedUnit> {
 

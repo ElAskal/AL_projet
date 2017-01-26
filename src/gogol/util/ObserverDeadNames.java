@@ -3,7 +3,7 @@ package gogol.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import soldier.ArmedUnit;
+import gogol.soldier.ArmedUnit;
 
 public class ObserverDeadNames implements Observer<ArmedUnit> {
 
