@@ -38,13 +38,13 @@ import gogol.rule.GogolOverlapRules;
 public class GameLevelOne extends GameLevelDefaultImpl {
 	static Canvas canvas;
 
-	// 0 : Pacgums; 1 : Walls; 2 : SuperPacgums; 3 : Doors; 4 : Jail; 5 : empty
+	// 0 : Pacgums; 1 : Walls; 2 : Swords; 3 : Doors; 4 : Jail; 5 : empty; 6 : Shields
 	// Note: teleportation points are not indicated since they are defined by
 	// directed pairs of positions.
 	static int[][] tab = { 
 		    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-			{ 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 2, 1 },
+			{ 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 6, 1 },
 			{ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1 },
 			{ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1 },
 			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
@@ -65,7 +65,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 			{ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1 },
 			{ 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1 },
-			{ 1, 2, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 1 },
+			{ 1, 6, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 1 },
 			{ 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1 },
 			{ 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1 },
 			{ 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1 },
@@ -108,10 +108,12 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 				}
 				if (tab[i][j] == 2) {
 					universe.addGameEntity(new Sword(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
-					totalNbGums++;
 				}
 				if (tab[i][j] == 4) {
 					universe.addGameEntity(new Jail(new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
+				}
+				if (tab[i][j] == 6) {
+					universe.addGameEntity(new Shield(canvas, new Point(j * SPRITE_SIZE, i * SPRITE_SIZE)));
 				}
 			}
 		}
@@ -144,7 +146,7 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 			MoveStrategyRandom ranStr = new MoveStrategyRandom();
 			cavalryDriv.setStrategy(ranStr);
 			cavalryDriv.setmoveBlockerChecker(moveBlockerChecker);
-			myCavalry = new Cavalry(canvas, new Horseman(""));
+			myCavalry = new Cavalry(canvas);
 			myCavalry.setDriver(cavalryDriv);
 			myCavalry.setPosition(new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE));
 			universe.addGameEntity(myCavalry);
@@ -159,6 +161,6 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 	
 	public static void fillCavalries(Vector<Cavalry> vc){
 		while (vc.size() < NUMBER_OF_CAVALRIES)
-			vc.addElement(new Cavalry(canvas, new Horseman("")));
+			vc.addElement(new Cavalry(canvas));
 	}
 }

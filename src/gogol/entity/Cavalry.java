@@ -6,7 +6,10 @@ import gameframework.core.GameEntity;
 import gameframework.core.GameMovable;
 import gameframework.core.Overlappable;
 import gameframework.core.SpriteManagerDefaultImpl;
+import gogol.soldier.ArmedUnitGroup;
+import gogol.soldier.ArmedUnitSoldier;
 import gogol.soldier.Horseman;
+import gogol.util.MiddleAgeFactory;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -21,8 +24,9 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 	public static final int RENDERING_SIZE = 16;
 	private Horseman h;
 	public boolean beaten = false;
+	public ArmedUnitGroup aug;
 	
-	public Cavalry(Canvas defaultCanvas, Horseman h) {
+	public Cavalry(Canvas defaultCanvas) {
 		spriteManager = new SpriteManagerDefaultImpl("images/horseman.gif",
 				defaultCanvas, RENDERING_SIZE, 3);
 		spriteManager.setTypes(
@@ -31,7 +35,13 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 				//
 				
 				"static", "unused");
-		this.h = h;
+		MiddleAgeFactory maf = new MiddleAgeFactory();
+		aug = new ArmedUnitGroup(maf, "");
+		aug.addUnit(new ArmedUnitSoldier(maf, "Rider", ""));
+	}
+	
+	public ArmedUnitGroup getAug(){
+		return aug;
 	}
 	
 	public boolean getBeaten(){
