@@ -31,15 +31,17 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected boolean manageSanchezDeath;
 	private final ObservableValue<Integer> score;
 	private final ObservableValue<Integer> life;
+	private final ObservableValue<Float> health;
 	private final ObservableValue<Boolean> endOfGame;
 
 	public GogolOverlapRules(Point sPos, Point cPos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,
-			ObservableValue<Boolean> endOfGame) {
+			ObservableValue<Float> health, ObservableValue<Boolean> endOfGame) {
 		sanchezStartPos = (Point) sPos.clone();
 		cavalryStartPos = (Point) cPos.clone();
 		this.life = life;
 		this.score = score;
+		this.health = health;
 		this.endOfGame = endOfGame;
 	}
 
@@ -92,6 +94,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				}
 			}
 			if(!(aug.alive())){
+				health.setValue((float)0.0);
 				System.out.println("Sanchez est vaincu !");
 				if(manageSanchezDeath){
 					life.setValue(life.getValue() - 1);
@@ -107,6 +110,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 			else{
 				System.out.println("PV de Sanchez après la bataille: "+aug.getHealthPoints()+"\n");
 				System.out.println("PV de la cavalerie après la bataille: "+aug2.getHealthPoints()+"\n");
+				health.setValue(aug.getHealthPoints());
 			}
 		}
 		/* if (!p.isVulnerable()) {
