@@ -16,7 +16,7 @@ public class Shield implements Drawable, GameEntity, Overlappable {
 	public static final int RENDERING_SIZE = 16;
 
 	public Shield(Canvas defaultCanvas, Point pos) {
-		image = new DrawableImage("images/superpacgum.gif", defaultCanvas);
+		image = new DrawableImage("images/shield.gif", defaultCanvas);
 		position = pos;
 	}
 
