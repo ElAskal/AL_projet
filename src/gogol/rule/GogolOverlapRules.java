@@ -11,7 +11,7 @@ import java.awt.Point;
 import java.util.Vector;
 
 import gogol.entity.Jail;
-import gogol.entity.Pacgum;
+import gogol.entity.Ruby;
 import gogol.entity.TeleportPairOfPoints;
 import gogol.entity.Sanchez;
 import gogol.entity.Shield;
@@ -154,7 +154,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		c.getAug().addEquipmentOneEach("Defensive");
 	}
 
-	public void overlapRule(Cavalry c, Pacgum pg) {
+	public void overlapRule(Cavalry c, Ruby pg) {
 	}
 
 	public void overlapRule(Cavalry c, TeleportPairOfPoints teleport) {
@@ -183,7 +183,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		sa.getAug().addEquipmentOneEach("Defensive");
 	}
 
-	public void overlapRule(Sanchez s, Pacgum pg) {
+	public void overlapRule(Sanchez s, Ruby pg) {
 		score.setValue(score.getValue() + 1);
 		victoryByPoints();
 		universe.removeGameEntity(pg);
