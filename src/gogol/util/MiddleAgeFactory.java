@@ -1,6 +1,5 @@
 package gogol.util;
 
-import gogol.entity.*;
 import gogol.soldier.Horseman;
 import gogol.soldier.InfantryMan;
 import gogol.soldier.Soldier;

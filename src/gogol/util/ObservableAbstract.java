@@ -1,9 +1,7 @@
 package gogol.util;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import gameframework.core.GameMovable;
 
 public class ObservableAbstract<S> implements Observable<S> {
 	private ArrayList<Observer<S>> observers = new ArrayList<Observer<S>>();

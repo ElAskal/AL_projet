@@ -4,8 +4,6 @@ import gameframework.core.GameMovableDriverDefaultImpl;
 import gameframework.core.GameUniverse;
 import gameframework.core.ObservableValue;
 import gameframework.moves_rules.MoveStrategyDefaultImpl;
-import gameframework.moves_rules.MoveStrategyRandom;
-import gameframework.moves_rules.MoveStrategyStraightLine;
 import gameframework.moves_rules.Overlap;
 import gameframework.moves_rules.OverlapRulesApplierDefaultImpl;
 
@@ -21,11 +19,7 @@ import gogol.entity.Sword;
 import gogol.entity.Cavalry;
 import gogol.soldier.ArmedUnitGroup;
 import gogol.soldier.ArmedUnitSoldier;
-import gogol.soldier.Horseman;
-import gogol.soldier.Soldier;
-import gogol.util.MiddleAgeFactory;
 import gogol.util.VisitorClassicCounter;
-import gogol.weapon.SoldierWithSword;
 import gogol.GameLevelOne;
 
 public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
@@ -38,8 +32,6 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	private final ObservableValue<Integer> score;
 	private final ObservableValue<Integer> life;
 	private final ObservableValue<Boolean> endOfGame;
-	private int totalNbGums = 0;
-	private int nbEatenGums = 0;
 
 	public GogolOverlapRules(Point sPos, Point cPos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,
@@ -53,10 +45,6 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 
 	public void setUniverse(GameUniverse universe) {
 		this.universe = universe;
-	}
-
-	public void setTotalNbGums(int totalNbGums) {
-		this.totalNbGums = totalNbGums;
 	}
 
 	public void addCavalry(Cavalry c) {
@@ -188,11 +176,6 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		score.setValue(score.getValue() + 1);
 		victoryByPoints();
 		universe.removeGameEntity(pg);
-		pacgumEatenHandler();
-	}
-
-	private void pacgumEatenHandler() {
-		nbEatenGums++;
 	}
 	
 	private void victoryByPoints(){

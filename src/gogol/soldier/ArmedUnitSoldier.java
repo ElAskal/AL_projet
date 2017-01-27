@@ -5,7 +5,6 @@ import java.util.List;
 
 import gogol.util.*;
 import gogol.except.*;
-import gogol.soldier.SoldierAbstract;
 
 public class ArmedUnitSoldier extends ObservableAbstract<ArmedUnit> 
                               implements ArmedUnit {

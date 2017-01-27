@@ -117,7 +117,6 @@ public class GameLevelOne extends GameLevelDefaultImpl {
 				}
 			}
 		}
-		overlapRules.setTotalNbGums(totalNbGums);
 
 		// Two teleport points definition and inclusion in the universe
 		// (west side to east side)
