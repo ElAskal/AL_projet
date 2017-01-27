@@ -10,13 +10,13 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class Pacgum implements Drawable, GameEntity, Overlappable {
+public class Ruby implements Drawable, GameEntity, Overlappable {
 	protected static DrawableImage image = null;
 	protected Point position;
 	public static final int RENDERING_SIZE = 16;
 
-	public Pacgum(Canvas defaultCanvas, Point pos) {
-		image = new DrawableImage("images/pacgum.gif", defaultCanvas);
+	public Ruby(Canvas defaultCanvas, Point pos) {
+		image = new DrawableImage("images/ruby.gif", defaultCanvas);
 		position = pos;
 	}
 

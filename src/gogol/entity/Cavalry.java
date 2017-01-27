@@ -21,7 +21,7 @@ public class Cavalry extends GameMovable implements Drawable, GameEntity,
 	protected static DrawableImage image = null;
 	protected boolean movable = true;
 	private final SpriteManagerDefaultImpl spriteManager;
-	public static final int RENDERING_SIZE = 16;
+	public static final int RENDERING_SIZE = 24;
 	private Horseman h;
 	public boolean beaten = false;
 	public ArmedUnitGroup aug;
