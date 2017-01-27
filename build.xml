@@ -43,6 +43,7 @@ Compilation du projet AL-projet
        ================================= -->
   <target name="clean" description="Nettoyage des fichiers compilés">
 		<delete dir="${bin.dir}"/>
+		<delete file="Sanchez.jar"/>
   </target>
 
 <!-- ================================= 
