@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ======================================================================                                                       
+  
+Compilation du projet AL-projet
+                                                               
+====================================================================== -->
+<project name="AL-projet" default="default">
+  <property name="src.dir" location="src" />
+  <property name="bin.dir" location="bin" />
+  <property name="img.dir" location="images" />
+  
+  <description>
+    compilation du projet AL-projet
+  </description>
+  <!-- ================================= 
+       target: default              
+       ================================= -->
+  <target name="default" depends="jar" description="compilation du projet AL-projet">
+	
+  </target>
+	
+  <!-- ================================= 
+       target: comp            
+       ================================= -->
+  <target name="comp" description="compilation
+       du projet AL-projet">
+    <mkdir dir="${bin.dir}" />
+  	<copy todir="${bin.dir}">
+  		<fileset dir=".">
+  			<include name="images/**"/>
+  		</fileset>
+  	</copy>
+    <javac 
+    includeantruntime="false"
+	srcdir="${src.dir}"
+	destdir="${bin.dir}" 
+	 />
+    
+  </target>
+
+  <!-- ================================= 
+       target: clean            
+       ================================= -->
+  <target name="clean" description="Nettoyage des fichiers compilés">
+		<delete dir="${bin.dir}"/>
+  </target>
+
+<!-- ================================= 
+     target: jar            
+     ================================= -->
+	<target name="jar" depends="comp">
+	    <jar destfile="Sanchez.jar" basedir = "${bin.dir}">
+	    	<manifest>
+	    		<attribute name = "Main-Class" value = "gogol.Main"/>
+	    	</manifest>
+	    </jar>
+		<antcall target="ifUnix"/>
+	</target>
+	<condition property="is-unix">
+		<not>
+			<os family="windows"/>
+		</not>
+	</condition>
+	<target name="ifUnix" if="is-unix">
+		<antcall target="make-exec"/>
+	</target>
+	<target name="make-exec">
+		<exec executable="/bin/sh">
+			<arg value="-c" />
+			<arg value="chmod 744 Sanchez.jar" />
+		</exec>
+	</target>
+	
+</project>
+  
