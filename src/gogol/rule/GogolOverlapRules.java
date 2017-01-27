@@ -66,12 +66,11 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		if(!(c.getBeaten())){
 			ArmedUnitGroup aug = s.getAug();
 			ArmedUnitGroup aug2 = c.getAug();
-			System.out.println("PV de Sanchez avant la bataille: "+aug.getHealthPoints()+"\n");
-			System.out.println("PV de la cavalerie avant la bataille: "+aug2.getHealthPoints()+"\n");
+			System.out.println("PV de l'ennemi avant la bataille: "+aug2.getHealthPoints()+"\n");
 			aug2.parry(aug.strike()); // Sanchez always strikes first, it is harder to strike on a horse.
 			if(Math.random() >= 0.9 && aug2.alive()){
 				aug2.parry(aug.strike());
-				System.out.println("Sanchez attaque encore !\n");
+				System.out.println("Sanchez inflige un coup critique !\n");
 			}
 			if(!(aug2.alive())){
 				System.out.println("L'ennemi est vaincu !");
@@ -82,12 +81,6 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				CavalryDriv.setStrategy(strat);
 				score.setValue(score.getValue() + 25);
 				victoryByPoints();
-				aug.addUnit(new ArmedUnitSoldier(s.getMaf(), "Rider", ""));
-				VisitorClassicCounter vcc = new VisitorClassicCounter();
-				vcc.visit(aug);
-				System.out.println("Compteur du visiteur = "+vcc.getCount());
-				if(vcc.getCount() >= 6)
-					endOfGame.setValue(true);
 				health.setValue(aug.getHealthPoints());
 				army.setValue(army.getValue() + 1);
 				if(army.getValue() >= 4)
@@ -97,15 +90,16 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				aug.parry(aug2.strike());
 				if(Math.random() >= 0.9 && aug.alive()){
 					aug.parry(aug2.strike());
-					System.out.println("L'ennemi attaque encore !\n");
+					System.out.println("L'ennemi inflige un coup critique !\n");
 				}
 			}
 			if(!(aug.alive())){
-				health.setValue((float)0.0);
 				System.out.println("Sanchez est vaincu !");
 				if(manageSanchezDeath){
 					life.setValue(life.getValue() - 1);
+					score.setValue(0);
 					aug.heal();
+					health.setValue(aug.getHealthPoints());
 					s.setPosition(sanchezStartPos);
 					GameLevelOne.fillCavalries(vCavalries);
 					for (Cavalry cav : vCavalries) {
@@ -115,7 +109,6 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				}
 			}
 			else{
-				System.out.println("PV de Sanchez après la bataille: "+aug.getHealthPoints()+"\n");
 				System.out.println("PV de la cavalerie après la bataille: "+aug2.getHealthPoints()+"\n");
 				health.setValue(aug.getHealthPoints());
 			}

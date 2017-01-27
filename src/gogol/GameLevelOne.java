@@ -79,7 +79,7 @@ public class GameLevelOne extends GogolLevelDefaultImpl {
 		moveBlockerChecker.setMoveBlockerRules(new GogolMoveBlockers());
 		
 		GogolOverlapRules overlapRules = new GogolOverlapRules(new Point(14 * SPRITE_SIZE, 17 * SPRITE_SIZE),
-				new Point(14 * SPRITE_SIZE, 15 * SPRITE_SIZE), life[0], score[0], health[0], army[0], endOfGame);
+				new Point(14 * SPRITE_SIZE, 2 * SPRITE_SIZE), life[0], score[0], health[0], army[0], endOfGame);
 		overlapProcessor.setOverlapRules(overlapRules);
 
 		universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
