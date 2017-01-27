@@ -37,6 +37,7 @@ public class GogolDefaultImpl implements Game, Observer{
 	protected ObservableValue<Integer> score[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 	protected ObservableValue<Integer> life[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 	protected ObservableValue<Float> health[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
+	protected ObservableValue<Integer> army[] = new ObservableValue[MAX_NUMBER_OF_PLAYER];
 
 	// initialized before each level
 	protected ObservableValue<Boolean> endOfGame = null;
@@ -47,10 +48,10 @@ public class GogolDefaultImpl implements Game, Observer{
 	protected int levelNumber;
 	protected ArrayList<GameLevel> gameLevels;
 
-	protected Label lifeText, scoreText, healthText;
+	protected Label lifeText, scoreText, healthText, armyText;
 	protected Label information;
 	protected Label informationValue;
-	protected Label lifeValue, scoreValue, healthValue;
+	protected Label lifeValue, scoreValue, healthValue, armyValue;
 	protected Label currentLevel;
 	protected Label currentLevelValue;
 
@@ -59,10 +60,12 @@ public class GogolDefaultImpl implements Game, Observer{
 			score[i] = new ObservableValue<Integer>(0);
 			life[i] = new ObservableValue<Integer>(0);
 			health[i] = new ObservableValue<Float>((float) 0.0);
+			army[i] = new ObservableValue<Integer>(0);
 		}
 		lifeText = new Label("Lives:");
 		healthText = new Label("Health:");
 		scoreText = new Label("Score:");
+		armyText = new Label("Army:");
 		information = new Label("State:");
 		informationValue = new Label("Playing");
 		currentLevel = new Label("Level:");
@@ -151,6 +154,7 @@ public class GogolDefaultImpl implements Game, Observer{
 		lifeValue = new Label(Integer.toString(life[0].getValue()));
 		scoreValue = new Label(Integer.toString(score[0].getValue()));
 		healthValue = new Label(Float.toString(health[0].getValue()));
+		armyValue = new Label(Integer.toString(army[0].getValue()));
 		currentLevelValue = new Label(Integer.toString(levelNumber));
 		c.add(lifeText);
 		c.add(lifeValue);
@@ -158,6 +162,8 @@ public class GogolDefaultImpl implements Game, Observer{
 		c.add(scoreValue);
 		c.add(healthText);
 		c.add(healthValue);
+		c.add(armyText);
+		c.add(armyValue);
 		c.add(currentLevel);
 		c.add(currentLevelValue);
 		c.add(information);
@@ -174,9 +180,11 @@ public class GogolDefaultImpl implements Game, Observer{
 			score[i].addObserver(this);
 			life[i].addObserver(this);
 			health[i].addObserver(this);
+			army[i].addObserver(this);
 			life[i].setValue(NUMBER_OF_LIVES);
 			score[i].setValue(0);
 			health[i].setValue(new InfantryMan("").getHealthPoints());
+			army[i].setValue(1);
 		}
 		levelNumber = 0;
 		for (GameLevel level : gameLevels) {
@@ -227,6 +235,10 @@ public class GogolDefaultImpl implements Game, Observer{
 	public ObservableValue<Float>[] health() {
 		return health;
 	}
+	
+	public ObservableValue<Integer>[] army() {
+		return army;
+	}
 
 	public ObservableValue<Boolean> endOfGame() {
 		return endOfGame;
@@ -267,6 +279,13 @@ public class GogolDefaultImpl implements Game, Observer{
 				if(o == healthObservable){
 					healthValue
 						.setText(Float.toString(((ObservableValue<Float>) o)
+								.getValue()));
+				}
+			}
+			for (ObservableValue<Integer> armyObservable : army){
+				if(o == armyObservable){
+					armyValue
+						.setText(Integer.toString(((ObservableValue<Integer>) o)
 								.getValue()));
 				}
 			}

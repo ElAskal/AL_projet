@@ -23,6 +23,7 @@ public abstract class GogolLevelDefaultImpl extends Thread implements GameLevel 
 	protected ObservableValue<Integer> score[];
 	protected ObservableValue<Integer> life[];
 	protected ObservableValue<Float> health[];
+	protected ObservableValue<Integer> army[];
 	protected ObservableValue<Boolean> endOfGame;
 
 	boolean stopGameLoop;
@@ -34,6 +35,7 @@ public abstract class GogolLevelDefaultImpl extends Thread implements GameLevel 
 		this.score = g.score();
 		this.life = g.life();
 		this.health = ((GogolDefaultImpl) g).health();
+		this.army = ((GogolDefaultImpl)g).army();
 	}
 
 	// start of class Thread which calls the run method (see below) 

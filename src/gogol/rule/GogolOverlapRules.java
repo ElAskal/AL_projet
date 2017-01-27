@@ -32,16 +32,19 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	private final ObservableValue<Integer> score;
 	private final ObservableValue<Integer> life;
 	private final ObservableValue<Float> health;
+	private final ObservableValue<Integer> army;
 	private final ObservableValue<Boolean> endOfGame;
 
 	public GogolOverlapRules(Point sPos, Point cPos,
 			ObservableValue<Integer> life, ObservableValue<Integer> score,
-			ObservableValue<Float> health, ObservableValue<Boolean> endOfGame) {
+			ObservableValue<Float> health, ObservableValue<Integer> army,
+			ObservableValue<Boolean> endOfGame) {
 		sanchezStartPos = (Point) sPos.clone();
 		cavalryStartPos = (Point) cPos.clone();
 		this.life = life;
 		this.score = score;
 		this.health = health;
+		this.army = army;
 		this.endOfGame = endOfGame;
 	}
 
@@ -84,6 +87,10 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				vcc.visit(aug);
 				System.out.println("Compteur du visiteur = "+vcc.getCount());
 				if(vcc.getCount() >= 6)
+					endOfGame.setValue(true);
+				health.setValue(aug.getHealthPoints());
+				army.setValue(army.getValue() + 1);
+				if(army.getValue() >= 4)
 					endOfGame.setValue(true);
 			}
 			else{
