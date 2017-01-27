@@ -25,6 +25,8 @@ import gogol.GameLevelOne;
 public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	protected GameUniverse universe;
 	protected Vector<Cavalry> vCavalries = new Vector<Cavalry>();
+	private static final int SCORE_TO_WIN = 125;
+	private static final int ARMY_SIZE_TO_WIN = 5;
 
 	protected Point sanchezStartPos;
 	protected Point cavalryStartPos;
@@ -83,7 +85,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 				victoryByPoints();
 				health.setValue(aug.getHealthPoints());
 				army.setValue(army.getValue() + 1);
-				if(army.getValue() >= 4)
+				if(army.getValue() >= ARMY_SIZE_TO_WIN)
 					endOfGame.setValue(true);
 			}
 			else{
@@ -183,7 +185,7 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 	}
 	
 	private void victoryByPoints(){
-		if(score.getValue() >= 150)
+		if(score.getValue() >= SCORE_TO_WIN)
 			endOfGame.setValue(true);
 	}
 }
