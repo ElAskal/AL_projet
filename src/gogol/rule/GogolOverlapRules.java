@@ -73,10 +73,15 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 		if(!(c.getBeaten())){
 			ArmedUnitGroup aug = s.getAug();
 			ArmedUnitGroup aug2 = c.getAug();
-			System.out.println("PV de Sanchez avant overlap: "+aug.getHealthPoints()+"\n");
-			System.out.println("PV de la cavalerie avant overlap: "+aug2.getHealthPoints()+"\n");
+			System.out.println("PV de Sanchez avant la bataille: "+aug.getHealthPoints()+"\n");
+			System.out.println("PV de la cavalerie avant la bataille: "+aug2.getHealthPoints()+"\n");
 			aug2.parry(aug.strike()); // Sanchez always strikes first, it is harder to strike on a horse.
+			if(Math.random() >= 0.9 && aug2.alive()){
+				aug2.parry(aug.strike());
+				System.out.println("Sanchez attaque encore !\n");
+			}
 			if(!(aug2.alive())){
+				System.out.println("L'ennemi est vaincu !");
 				c.setBeaten(true);
 				MoveStrategyDefaultImpl strat = new MoveStrategyDefaultImpl();
 				GameMovableDriverDefaultImpl CavalryDriv = (GameMovableDriverDefaultImpl) c
@@ -93,8 +98,13 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 			}
 			else{
 				aug.parry(aug2.strike());
+				if(Math.random() >= 0.9 && aug.alive()){
+					aug.parry(aug2.strike());
+					System.out.println("L'ennemi attaque encore !\n");
+				}
 			}
 			if(!(aug.alive())){
+				System.out.println("Sanchez est vaincu !");
 				if(manageSanchezDeath){
 					life.setValue(life.getValue() - 1);
 					aug.heal();
@@ -105,7 +115,11 @@ public class GogolOverlapRules extends OverlapRulesApplierDefaultImpl {
 					}
 					manageSanchezDeath = false;
 				}
-			}	
+			}
+			else{
+				System.out.println("PV de Sanchez après la bataille: "+aug.getHealthPoints()+"\n");
+				System.out.println("PV de la cavalerie après la bataille: "+aug2.getHealthPoints()+"\n");
+			}
 		}
 		/* if (!p.isVulnerable()) {
 			if (g.isActive()) {
